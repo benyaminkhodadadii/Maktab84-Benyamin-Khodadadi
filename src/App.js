@@ -1,11 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, {useState} from "react";
+import axios from "axios";
 function App() {
+    const [item,setItem]=useState([])
+    const [f,setF]=useState(false)
+   axios.get('http://localhost:3002/products').then(data => setItem(data.data))
+    // const [first]=item;
+
+
   return (
       <>
-        <h1>hello</h1>
-        <h2>bye</h2>
+          <button onClick={()=>setF(true)} >+</button>
+          {f&& item.map(e=><img src={e.image[0]} key={e}/>)}
       </>
 
 
