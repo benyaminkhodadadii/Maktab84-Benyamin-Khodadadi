@@ -1,0 +1,19 @@
+
+.shadowHeader{
+    box-shadow: 0 5px 20px #EDECF1;
+}
+.shadowRedBadge{
+    box-shadow: 0 2px 5px #FB91A1;
+}
+.shadowFooter{
+    box-shadow: 0 -5px 20px #EDECF1;
+}
+.boxShadow{
+    box-shadow: 0 5px 20px #F6F6F8;
+}
+.boxShadowAbs{
+    box-shadow: 0 10px 40px #ceced5;
+}
+.activeNav {
+    background: rebeccapurple;
+}
