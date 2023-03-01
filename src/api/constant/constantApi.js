@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = 'http://localhost:3002/';
+export const BASE_URL = 'http://localhost:3002';
 export const LOGIN_URL = '/auth/login';
 
 export const INSTANCE = axios.create({
@@ -8,5 +8,6 @@ export const INSTANCE = axios.create({
     headers : {
         Authorization:`${localStorage.getItem('accessToken')}`
     }
+
 
 })

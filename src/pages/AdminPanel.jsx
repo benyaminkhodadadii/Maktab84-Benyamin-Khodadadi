@@ -1,32 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 import Button from "../components/Button";
 import styles from '../assests/styles/shadow.module.css'
 import {INSTANCE} from "../api/constant/constantApi";
 import {useDispatch, useSelector} from "react-redux";
 import {auth} from "../store/Feacture/reducer/isAuth";
-import ManagmentPanel from "./managmentPanel";
-import {Outlet} from "react-router-dom";
-import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+// import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ManagmentPanel from "./managmentPanel";
+import ErrorHandler from "../components/errorHandler";
 const AdminPanel = () => {
     const dispatch = useDispatch();
-    const selectAuth = useSelector(state=>state.data.token)
+    const selectAuth = useSelector(state=>state.data.token);
+    const [isErorr,setIsError] = useState(false);
     const handlerSubmit = (dataAdmin) => {
         INSTANCE.post("/auth/login", {
             username: dataAdmin.userName,
             password: dataAdmin.password
         })
             .then(data => {
-                dispatch(auth(JSON.stringify(data.data)))
+                dispatch(auth(JSON.stringify(data.data)));
             })
-            .catch(() => toast("401 Error"))
+            .catch(() =>setIsError(true))
     }
 
     const {register, handleSubmit, formState: {errors}} = useForm();
     return (
         <>
+            {isErorr && <ErrorHandler/>}
             {!selectAuth &&  <div className={`${styles.shadowHeader} bg-white my-12 p-4 w-max m-auto w-full flex `}>
 
                 <form onSubmit={handleSubmit(handlerSubmit)} className='flex flex-col gap-4 '>
@@ -48,12 +50,11 @@ const AdminPanel = () => {
                     {errors.userName && <span className={'text-[#F62343] text-right'}>نام کاربری اشتباه است</span>}
                     {errors.password && <span className={'text-[#F62343] text-right'}>رمز عبور اشتباه است</span>}
                     <Button styleButton={'bg-[#3264C7] text-white rounded'}>ورود</Button>
-
-
                 </form>
             </div>}
+
             {selectAuth && <ManagmentPanel/>}
-            <Outlet/>
+
         </>
 
     );

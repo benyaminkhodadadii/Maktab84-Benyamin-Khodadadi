@@ -9,19 +9,23 @@ import tshirt from '../assests/SvgImage/solid tshirt.svg'
 import Button from "../components/Button";
 import Icons from "../components/Icons";
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
+
+import {auth} from "../store/Feacture/reducer/isAuth";
 
 const Header = () => {
     // const selector=useSelector(state=>state.authTest.token);
+    // const navigate = useNavigate();
+    // navigate("/managmentPanel")
     const selectAuth = useSelector(state=>state.data.token)
     const [btnChange,setBtnChange]=useState(false)
-
+    const dispatch = useDispatch(state=>state.data.token)
     return (
 
         <div className={` flex ${styles.shadowHeader}`}>
             <div className={`p-4  flex  w-[1332px] mx-auto items-center justify-between`}>
                 <div className={'flex gap-8 hidden md:flex w-full justify-between items-center'}>
-                    <Link to="/homePage"><img src={desktopLogo} alt=""
+                    <Link to="/"><img src={desktopLogo} alt=""
                                               className='hidden sm:flex cursor-pointer'/></Link>
                     {selectAuth && (
                         <div className='flex items-center justify-between w-full'>
@@ -40,20 +44,32 @@ const Header = () => {
                                         </svg>
                                     </div>}
                                 </div>
-                                <Link to={'/adminPanel'}>
-                                    <Button styleButton={'text-[#20262E] bg-[#E4E4E5] hover:bg-[#20262E]'}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
-                                             viewBox="0 0 14 16">
-                                            <path className='fill-current' id="solid_user-tie"
-                                                  data-name="solid user-tie"
-                                                  d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z"
-                                                  fill="#20262e"/>
-                                        </svg>
-                                        مدیریت</Button>
-                                </Link>
-
                             </div>
+
+                            <Link to={'/'}>
+                                <div className='flex gap-4'>
+                                    <Link to={'/adminPanel'}>
+                                        <Button  styleButton={'text-[#20262E] bg-[#E4E4E5] hover:bg-[#20262E] hover:text-white'}>
+                                            <svg  xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16">
+                                                <path className='fill-current' id="solid_user-tie" data-name="solid user-tie" d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z" fill="#20262e"/>
+                                            </svg>
+                                            پنل ادمین</Button>
+                                    </Link>
+                                <Button onClick={()=>dispatch(auth(''))} styleButton={'text-[#F62343] bg-[#FFD9DF] hover:bg-[#F62343] hover:text-white'}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
+                                         viewBox="0 0 14 16">
+                                        <path className='fill-current' id="solid_user-tie"
+                                              data-name="solid user-tie"
+                                              d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z"
+                                              fill="#20262e"/>
+                                    </svg>
+                                    خروج</Button>
+
+
+                                </div>
+                            </Link>
                         </div>
+
                     )}
                     {!selectAuth && (
                         <>
@@ -88,9 +104,6 @@ const Header = () => {
                             </div>
                             </>
                             )}
-
-
-
             </div>
             <div className={'md:hidden w-full flex justify-between p-4 items-center'}>
                 <Icons isBg={'bg-[#E6ECF8] p-4'}><img src={solidBars}/> </Icons>

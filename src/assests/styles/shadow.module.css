@@ -17,3 +17,6 @@
 .activeNav {
     background: rebeccapurple;
 }
+.disableBox{
+    display: hidden;
+}

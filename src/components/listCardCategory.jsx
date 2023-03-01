@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import shadows from "../assests/styles/shadow.module.css";
 import laptop from "../assests/SvgImage/solid laptop.svg"
 import leftArrow from "../assests/SvgImage/solid angle-left.svg"
-import axios from "axios";
 import {Link} from "react-router-dom";
+import {INSTANCE} from "../api/constant/constantApi";
 // import focusProduct from "../api/services/product/focusProduct";
 const ListCardCategory = () => {
     const [productsData, setProductsData] = useState([]);
-    axios.get('http://localhost:3002/products').then(data => setProductsData(data.data))
+   useEffect(()=>{
+       INSTANCE.get('/products').then(data => setProductsData(data.data)).catch(e=>alert(e))
+   },[])
 
     return (
         <div>
