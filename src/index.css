@@ -1,9 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
+* {
     font-family: IRANYekan;
 }
-body{
+
+body {
     background: #FAFAFC;
+}
+
+.active {
+    background-color: #3264C7 !important;
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 5px 30px rgba(50, 100, 199, 0.16);
+
 }

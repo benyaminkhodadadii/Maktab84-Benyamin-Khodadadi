@@ -9,12 +9,7 @@ const dataReducer = createSlice({
     name: 'dataReducer',
     initialState: init,
     reducers: {
-        add: (state) => {
-            state.dataList.push('added')
-        },
-        remove: (state) => {
-            state.dataList = []
-        },
+
         auth:(state,action)=>{
             state.token = action.payload;
         }
@@ -22,5 +17,5 @@ const dataReducer = createSlice({
     }
 })
 
-export const {auth,add,remove} = dataReducer.actions
+export const {auth} = dataReducer.actions
 export default dataReducer.reducer

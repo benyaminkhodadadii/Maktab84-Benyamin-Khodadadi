@@ -15,7 +15,8 @@
     box-shadow: 0 10px 40px #ceced5;
 }
 .activeNav {
-    background: rebeccapurple;
+    background: #3264C7;
+    color: white
 }
 .disableBox{
     display: hidden;

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import styles from '../assests/styles/shadow.module.css'
-import AddProductBtn from "../layout/addProductBtn";
-import Table from "../components/Table";
 import Pagination from "../components/Pagination";
 import {INSTANCE} from "../api/constant/constantApi";
 import {ToastContainer} from "react-toastify";
+import TableForPriceAndInventory from "../components/TableForPriceAndInventory";
+import UpdatePriceAndInventoryBtn from "../components/updatePriceAndInventoryBtn";
 
-const OrderProduct = () => {
+const InventoryAndPrice = () => {
     const [posts, setPosts] = useState([]),
         [loading, setLoading] = useState(false),
         [currentPage, setCurrentPage] = useState(1),
@@ -20,14 +20,15 @@ const OrderProduct = () => {
         setLoading(true)
         INSTANCE.get('/products')
             .then(res => setPosts(res.data))
-            .catch(e=>Promise.reject(e))
+            .catch(Promise.reject())
         setLoading(false)
     }, [])
+
     return (
         <>
-            <AddProductBtn h1Tag='افزودن کالا'>افزودن کالا</AddProductBtn>
+            <UpdatePriceAndInventoryBtn h1Tag='موجودی و قیمت ها'>ذخیره</UpdatePriceAndInventoryBtn>
             <div className={`relative  ${styles.boxShadow} bg-white p-2 mt-12  sm:rounded-lg`}>
-                <Table posts={currentPosts}  setPosts={setPosts} loading={loading} />
+                <TableForPriceAndInventory  posts={currentPosts} loading={loading}/>
             </div>
             <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate}/>
             <ToastContainer
@@ -46,4 +47,4 @@ const OrderProduct = () => {
     );
 };
 
-export default OrderProduct;
+export default InventoryAndPrice;

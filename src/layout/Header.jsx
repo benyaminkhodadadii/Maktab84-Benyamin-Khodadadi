@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from '../assests/styles/shadow.module.css'
 import desktopLogo from '../assests/SvgImage/desktopLogo.svg'
 import Logo from '../assests/SvgImage/—Pngtree—letter b logo_6059123.svg'
@@ -9,61 +9,51 @@ import tshirt from '../assests/SvgImage/solid tshirt.svg'
 import Button from "../components/Button";
 import Icons from "../components/Icons";
 import {Link} from "react-router-dom";
-import {useDispatch,useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {auth} from "../store/Feacture/reducer/isAuth";
 
 const Header = () => {
-    // const selector=useSelector(state=>state.authTest.token);
-    // const navigate = useNavigate();
-    // navigate("/managmentPanel")
-    const selectAuth = useSelector(state=>state.data.token)
-    const [btnChange,setBtnChange]=useState(false)
-    const dispatch = useDispatch(state=>state.data.token)
-    return (
+    const selectAuth = useSelector(state => state.data.token)
+    const dispatch = useDispatch(state => state.data.token)
 
+    return (
         <div className={` flex ${styles.shadowHeader}`}>
             <div className={`p-4  flex  w-[1332px] mx-auto items-center justify-between`}>
                 <div className={'flex gap-8 hidden md:flex w-full justify-between items-center'}>
                     <Link to="/"><img src={desktopLogo} alt=""
-                                              className='hidden sm:flex cursor-pointer'/></Link>
+                                      className='hidden sm:flex cursor-pointer'/></Link>
                     {selectAuth && (
                         <div className='flex items-center justify-between w-full'>
                             <h1 className='text-3xl font-bold'> پنل مدیریت فروشگاه خونه </h1>
                             <div className='flex gap-4 items-center '>
-                                <div className='flex items-center justify-between w-full'>
-                                    <input onFocus={()=>setBtnChange(true)} onBlur={()=>setBtnChange(false)} type="search" name="search" id="search"  className='bg-[#F0F0F5] outline-none   w-full p-4 h-[40px] rounded-r' placeholder='جستجو ی محصولات'/>
-                                    {!btnChange && <div className=' px-4 h-[40px] flex items-center justify-center rounded-l bg-[#3264C7]'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16.003" viewBox="0 0 16 16.003">
-                                            <path id="solid_search" data-name="solid search" d="M15.782,13.835,12.667,10.72a.75.75,0,0,0-.531-.219h-.509A6.5,6.5,0,1,0,10.5,11.626v.509a.749.749,0,0,0,.219.531l3.116,3.116a.747.747,0,0,0,1.059,0l.884-.884A.754.754,0,0,0,15.782,13.835ZM6.5,10.5a4,4,0,1,1,4-4A4,4,0,0,1,6.5,10.5Z" fill="#fff"/>
-                                        </svg>
-                                    </div>}
-                                    {btnChange && <div className=' px-4 h-[40px] flex items-center justify-center rounded-l bg-[#3CCF4E]'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16.003" viewBox="0 0 16 16.003">
-                                            <path id="solid_search" data-name="solid search" d="M15.782,13.835,12.667,10.72a.75.75,0,0,0-.531-.219h-.509A6.5,6.5,0,1,0,10.5,11.626v.509a.749.749,0,0,0,.219.531l3.116,3.116a.747.747,0,0,0,1.059,0l.884-.884A.754.754,0,0,0,15.782,13.835ZM6.5,10.5a4,4,0,1,1,4-4A4,4,0,0,1,6.5,10.5Z" fill="#fff"/>
-                                        </svg>
-                                    </div>}
-                                </div>
+
                             </div>
 
                             <Link to={'/'}>
                                 <div className='flex gap-4'>
                                     <Link to={'/adminPanel'}>
-                                        <Button  styleButton={'text-[#20262E] bg-[#E4E4E5] hover:bg-[#20262E] hover:text-white'}>
-                                            <svg  xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16">
-                                                <path className='fill-current' id="solid_user-tie" data-name="solid user-tie" d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z" fill="#20262e"/>
+                                        <Button
+                                            styleButton={'text-[#20262E] bg-[#E4E4E5] hover:bg-[#20262E] hover:text-white'}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
+                                                 viewBox="0 0 14 16">
+                                                <path className='fill-current' id="solid_user-tie"
+                                                      data-name="solid user-tie"
+                                                      d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z"
+                                                      fill="#20262e"/>
                                             </svg>
                                             پنل ادمین</Button>
                                     </Link>
-                                <Button onClick={()=>dispatch(auth(''))} styleButton={'text-[#F62343] bg-[#FFD9DF] hover:bg-[#F62343] hover:text-white'}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
-                                         viewBox="0 0 14 16">
-                                        <path className='fill-current' id="solid_user-tie"
-                                              data-name="solid user-tie"
-                                              d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z"
-                                              fill="#20262e"/>
-                                    </svg>
-                                    خروج</Button>
+                                    <Button onClick={() => dispatch(auth(''))}
+                                            styleButton={'text-[#F62343] bg-[#FFD9DF] hover:bg-[#F62343] hover:text-white'}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
+                                             viewBox="0 0 14 16">
+                                            <path className='fill-current' id="solid_user-tie"
+                                                  data-name="solid user-tie"
+                                                  d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z"
+                                                  fill="#20262e"/>
+                                        </svg>
+                                        خروج</Button>
 
 
                                 </div>
@@ -102,25 +92,25 @@ const Header = () => {
                                     </Button>
                                 </Link>
                             </div>
-                            </>
-                            )}
-            </div>
-            <div className={'md:hidden w-full flex justify-between p-4 items-center'}>
-                <Icons isBg={'bg-[#E6ECF8] p-4'}><img src={solidBars}/> </Icons>
-                <Link to={'/homePage'}> <img src={Logo} className='w-16 h-16'/></Link>
-                <div className='flex gap-8'>
-                    <Button bgColor={'bg-[#E6ECF8]'}> سبد خرید</Button>
-                    <Button bgColor={'bg-[#E6ECF8]'}>مدیریت</Button>
+                        </>
+                    )}
+                </div>
+                <div className={'md:hidden w-full flex justify-between p-4 items-center'}>
+                    <Icons isBg={'bg-[#E6ECF8] p-4'}><img src={solidBars}/> </Icons>
+                    <Link to={'/homePage'}> <img src={Logo} className='w-16 h-16'/></Link>
+                    <div className='flex gap-8'>
+                        <Button bgColor={'bg-[#E6ECF8]'}> سبد خرید</Button>
+                        <Button bgColor={'bg-[#E6ECF8]'}>مدیریت</Button>
+                    </div>
+
                 </div>
 
             </div>
 
+
         </div>
-
-
-</div>
-)
-    ;
+    )
+        ;
 };
 
 export default Header;

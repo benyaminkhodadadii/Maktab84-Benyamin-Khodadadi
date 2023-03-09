@@ -4,15 +4,12 @@ import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import {Route, Routes} from "react-router-dom";
 import AdminPanel from "./pages/AdminPanel";
-// import ShareLayoutAdmin from "./pages/ShareLayoutAdmin";
 import OrderProduct from "./pages/OrderProduct";
 import ManagmentPanel from "./pages/managmentPanel";
+import InventoryAndPrice from "./pages/InventoryAndPrice";
 
-// import {useSelector} from "react-redux";
 
 function App() {
-    // const select = useSelector(state=>state.data.token);
-
     return (
         <>
             <Header/>
@@ -25,13 +22,15 @@ function App() {
                     <Route path={'/adminPanel'} element={<AdminPanel/>}>
                         <Route path={':productOrder'} element={<OrderProduct/>}/>
                     </Route>
-                    <Route path={'/managmentPanel'} element={<ManagmentPanel/>}>
+                    <Route path={'/adminPanel'} element={<ManagmentPanel/>}>
                         <Route path={'orderProduct'} element={<OrderProduct/>}>
-                        <Route path={":productId"}></Route>
+                            <Route path={":productId"}></Route>
+
+
                         </Route>
+                        <Route path ={'inventoryAndPrice'} element={<InventoryAndPrice/>}/>
+
                     </Route>
-
-
                 </Routes>
             </div>
             <Footer/>
