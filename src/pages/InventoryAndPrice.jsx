@@ -4,7 +4,6 @@ import Pagination from "../components/Pagination";
 import {INSTANCE} from "../api/constant/constantApi";
 import {ToastContainer} from "react-toastify";
 import TableForPriceAndInventory from "../components/TableForPriceAndInventory";
-import UpdatePriceAndInventoryBtn from "../components/updatePriceAndInventoryBtn";
 
 const InventoryAndPrice = () => {
     const [posts, setPosts] = useState([]),
@@ -26,7 +25,7 @@ const InventoryAndPrice = () => {
 
     return (
         <>
-            <UpdatePriceAndInventoryBtn h1Tag='موجودی و قیمت ها'>ذخیره</UpdatePriceAndInventoryBtn>
+
             <div className={`relative  ${styles.boxShadow} bg-white p-2 mt-12  sm:rounded-lg`}>
                 <TableForPriceAndInventory  posts={currentPosts} loading={loading}/>
             </div>

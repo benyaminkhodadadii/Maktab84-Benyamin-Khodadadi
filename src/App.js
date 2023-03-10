@@ -25,8 +25,6 @@ function App() {
                     <Route path={'/adminPanel'} element={<ManagmentPanel/>}>
                         <Route path={'orderProduct'} element={<OrderProduct/>}>
                             <Route path={":productId"}></Route>
-
-
                         </Route>
                         <Route path ={'inventoryAndPrice'} element={<InventoryAndPrice/>}/>
 

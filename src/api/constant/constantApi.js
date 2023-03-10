@@ -8,5 +8,6 @@ export const INSTANCE = axios.create({
     baseURL : BASE_URL,
     headers : {
         token:localStorage.getItem('accessToken')
-    }
+    },
+
 })
