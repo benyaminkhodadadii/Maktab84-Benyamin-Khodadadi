@@ -1,17 +1,19 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const init = {
-    dataList:[],
-}
+const init = {counter:0}
 const dataBase = createSlice({
     name: 'dataBase',
     initialState: init,
     reducers: {
-        allData:(state,action)=>{
-            state.dataList = action.payload;
+        increase:(state)=>{
+            state.counter++
+        },
+        decrease:(state)=>{
+            state.counter<=0 ? state.counter =0 : state.counter--
+
         }
     }
 })
 
-export const {allData} = dataBase.actions
+export const {increase,decrease} = dataBase.actions
 export default dataBase.reducer

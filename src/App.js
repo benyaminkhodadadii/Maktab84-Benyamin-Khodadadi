@@ -7,6 +7,10 @@ import AdminPanel from "./pages/AdminPanel";
 import OrderProduct from "./pages/OrderProduct";
 import ManagmentPanel from "./pages/managmentPanel";
 import InventoryAndPrice from "./pages/InventoryAndPrice";
+import ProductOfCategory from "./pages/ProductOfCategory";
+import FocusProduct from "./pages/FocusProduct";
+import ErrorURL from "./pages/ErrorURL";
+
 
 
 function App() {
@@ -15,20 +19,21 @@ function App() {
             <Header/>
             <div className='max-w-[1332px]  m-auto'>
                 <Routes>
-                    <Route path={`/`} element={<HomePage/>}></Route>
+                    <Route path='/' element={<HomePage/>}/>
+                    <Route  path={`:productId`} element={<FocusProduct/>}/>
+                    <Route path='/Digital' element={<ProductOfCategory category='Digital'/>}/>
+                    <Route path='/Stationery' element={<ProductOfCategory category='Stationery'/>}/>
+                    <Route path='/Clothes' element={<ProductOfCategory category='Clothes'/>}/>
                     <Route path={`/focusProduct`} element={<h1>FocusProduct</h1>}></Route>
-                    <Route path={`/allCategory`} element={<h1>its All Category</h1>}></Route>
-                    {/*<Route path={`/adminPanel`} element={<AdminPanel/>}/>*/}
+
                     <Route path={'/adminPanel'} element={<AdminPanel/>}>
                         <Route path={':productOrder'} element={<OrderProduct/>}/>
                     </Route>
                     <Route path={'/adminPanel'} element={<ManagmentPanel/>}>
-                        <Route path={'orderProduct'} element={<OrderProduct/>}>
-                            <Route path={":productId"}></Route>
-                        </Route>
+                        <Route path={'orderProduct'} element={<OrderProduct/>}/>
                         <Route path ={'inventoryAndPrice'} element={<InventoryAndPrice/>}/>
-
                     </Route>
+                    <Route path='*' element={<ErrorURL/>}></Route>
                 </Routes>
             </div>
             <Footer/>

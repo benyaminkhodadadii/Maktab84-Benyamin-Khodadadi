@@ -12,11 +12,12 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import {auth} from "../store/Feacture/reducer/isAuth";
+import shadowBadge from "../assests/styles/shadow.module.css";
 
 const Header = () => {
     const selectAuth = useSelector(state => state.data.token)
     const dispatch = useDispatch(state => state.data.token)
-
+    const counterResult = useSelector(state=>state.dataBase.counter)
     return (
         <div className={` flex ${styles.shadowHeader}`}>
             <div className={`p-4  flex  w-[1332px] mx-auto items-center justify-between`}>
@@ -79,7 +80,7 @@ const Header = () => {
                                         مدیریت</Button>
                                 </Link>
                                 <Link to={"/shopingPanel"}>
-                                    <Button
+                                    <Button number={counterResult}
                                         styleButton={'bg-[#E6ECF8] text-[#3264C7] hover:bg-[#3264C7] hover:text-white'}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                              height="12.445" viewBox="0 0 16 12.445">
@@ -89,6 +90,9 @@ const Header = () => {
                                                   transform="translate(0 -31.997)" fill="#3264c7"/>
                                         </svg>
                                         سبد خرید
+                                        <div className={`rounded-full bg-[#F62343] 
+            w-6 h-6 text-white font-bold flex items-center
+             justify-center  ${shadowBadge.shadowRedBadge} absolute bottom-7 right-[-12px]`}>{counterResult}</div>
                                     </Button>
                                 </Link>
                             </div>
