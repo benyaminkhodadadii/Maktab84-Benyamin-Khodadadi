@@ -10,7 +10,6 @@ const Button = (props) => {
                 className={`${styleButton} flex items-center gap-2 hover:text-white
                  py-2 px-6 rounded relative`}>
                 {props.children}
-
             </button>
 
         </div>

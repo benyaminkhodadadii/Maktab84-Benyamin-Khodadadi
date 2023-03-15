@@ -1,25 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '../assests/styles/shadow.module.css'
 import desktopLogo from '../assests/SvgImage/desktopLogo.svg'
 import Logo from '../assests/SvgImage/—Pngtree—letter b logo_6059123.svg'
 import solidBars from '../assests/SvgImage/solid bars.svg'
-import home from '../assests/SvgImage/solid home.svg'
-import Laptop from '../assests/SvgImage/solid laptop.svg'
-import tshirt from '../assests/SvgImage/solid tshirt.svg'
 import Button from "../components/Button";
 import Icons from "../components/Icons";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-
 import {auth} from "../store/Feacture/reducer/isAuth";
 import shadowBadge from "../assests/styles/shadow.module.css";
+import {INSTANCE} from "../api/constant/constantApi";
 
 const Header = () => {
     const selectAuth = useSelector(state => state.data.token)
     const dispatch = useDispatch(state => state.data.token)
-    const counterResult = useSelector(state=>state.dataBase.counter)
+    // const counterResult = useSelector(state => state.dataBase.counter)
+    const storageOrder = JSON.parse(localStorage.getItem('orders'))
+    // const [isProduct,setIsProduct]=useState(false);
+
+    const [items, setItems] = useState([]);
+    useEffect(() => {
+        INSTANCE.get(`/category`).then(res => setItems(res.data)).catch(e => console.error(e))
+    }, [])
     return (
         <div className={` flex ${styles.shadowHeader}`}>
+            {/*{console.log(storageOrder.length)}*/}
             <div className={`p-4  flex  w-[1332px] mx-auto items-center justify-between`}>
                 <div className={'flex gap-8 hidden md:flex w-full justify-between items-center'}>
                     <Link to="/"><img src={desktopLogo} alt=""
@@ -64,9 +69,12 @@ const Header = () => {
                     )}
                     {!selectAuth && (
                         <>
-                            <Icons text={'محصولات دیجیتال'}><img src={home} className='w-5 h-5' alt=""/></Icons>
-                            <Icons text={'محصولات دیجیتال'}><img src={Laptop} className='w-5 h-5' alt=""/></Icons>
-                            <Icons text={'مد و پوشاک'}><img src={tshirt} className='w-5 h-5' alt=""/></Icons>
+                            {items.map(data => (
+                                <Link key={data.id} to={`/${data.name}`}>
+                                    <Icons text={data.name}><img src={data.icon} className='w-5 h-5' alt=""/></Icons>
+                                </Link>
+                            ))}
+
                             <div className='flex gap-4'>
                                 <Link to={'/adminPanel'}>
                                     <Button styleButton={'text-[#20262E] bg-[#E4E4E5] hover:bg-[#20262E]'}>
@@ -80,8 +88,8 @@ const Header = () => {
                                         مدیریت</Button>
                                 </Link>
                                 <Link to={"/shopingPanel"}>
-                                    <Button number={counterResult}
-                                        styleButton={'bg-[#E6ECF8] text-[#3264C7] hover:bg-[#3264C7] hover:text-white'}>
+                                    <Button number={storageOrder.length}
+                                            styleButton={'bg-[#E6ECF8] text-[#3264C7] hover:bg-[#3264C7] hover:text-white'}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                              height="12.445" viewBox="0 0 16 12.445">
                                             <path className='fill-current' id="solid_shopping-basket"
@@ -91,8 +99,10 @@ const Header = () => {
                                         </svg>
                                         سبد خرید
                                         <div className={`rounded-full bg-[#F62343] 
-            w-6 h-6 text-white font-bold flex items-center
-             justify-center  ${shadowBadge.shadowRedBadge} absolute bottom-7 right-[-12px]`}>{counterResult}</div>
+                                                w-6 h-6 text-white font-bold flex items-center
+                                                justify-center  ${shadowBadge.shadowRedBadge} absolute bottom-7 right-[-12px]`}>
+                                            {storageOrder.length}</div>
+
                                     </Button>
                                 </Link>
                             </div>

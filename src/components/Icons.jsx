@@ -6,7 +6,7 @@ const Icons = (props) => {
 
     return (
         <div onMouseOver={() => setHoverState(true)} onMouseLeave={() => setHoverState(false)}
-             className={' py-4   border-b border-b-transparent hover:border-b-blue-400 '}>
+             className={` py-4 flex items-center border-b border-b-transparent hover:border-b-blue-400 `}>
             {hoverState && (<div className='flex items-center gap-2'>
                 <div className={`rounded mt-1 flex-1`}>{props.children}</div>
                 <p className={'font-bold'}>{text}</p>

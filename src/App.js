@@ -10,6 +10,7 @@ import InventoryAndPrice from "./pages/InventoryAndPrice";
 import ProductOfCategory from "./pages/ProductOfCategory";
 import FocusProduct from "./pages/FocusProduct";
 import ErrorURL from "./pages/ErrorURL";
+import ClientLogin from "./pages/ClientLogin";
 
 
 
@@ -25,7 +26,7 @@ function App() {
                     <Route path='/Stationery' element={<ProductOfCategory category='Stationery'/>}/>
                     <Route path='/Clothes' element={<ProductOfCategory category='Clothes'/>}/>
                     <Route path={`/focusProduct`} element={<h1>FocusProduct</h1>}></Route>
-
+                    <Route path='/clientLogin' element={<ClientLogin/>}></Route>
                     <Route path={'/adminPanel'} element={<AdminPanel/>}>
                         <Route path={':productOrder'} element={<OrderProduct/>}/>
                     </Route>

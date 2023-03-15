@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {INSTANCE} from "../api/constant/constantApi";
 import {Link} from "react-router-dom";
+import Icons from "./Icons";
 const RightFilter = () => {
     const [category,setCategory] = useState([]);
     useEffect(()=>{
@@ -18,9 +19,9 @@ const RightFilter = () => {
             </div>
             <div className='flex flex-col gap-2 pt-4'>
                 {category.map(data=>(
-                    <div key={data.id} className='hover:font-bold hover:text-[#3264C7] border-b-2 py-2 border-transparent hover:border-[#3264C7]'>
-                        <img src={data.icon} alt=""/>
-                       <Link to={`/${data.name}`}><h3>{data.name}</h3></Link>
+                    <div key={data.id} className=' py-2'>
+
+                       <Link to={`/${data.name}`}> <Icons  text={data.name}><img src={data.icon} className='w-5 h-5' alt=""/></Icons></Link>
                     </div>
                 ))}
             </div>

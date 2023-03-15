@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {BASE_URL, INSTANCE} from "../api/constant/constantApi";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import shadows from "../assests/styles/shadow.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {decrease, increase} from "../store/Feacture/reducer/dataBase";
@@ -8,14 +8,25 @@ import Button from "../components/Button";
 
 const FocusProduct = () => {
     const counterResult = useSelector(state=>state.dataBase.counter)
+    // const orderItemsSelect = useSelector(state =>state.dataBase.dataList)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const [data, setData] = useState([]);
+    // const [cardShopping,setCardShopping]=useState([])
     const params = useParams();
     useEffect(() => {
         INSTANCE.get(`/products/${params.productId}`).then(res => setData(res.data))
-    }, [])
-    return (<div className={`bg-white w-6/12 m-auto rounded p-[20px] ${shadows.shadowHeader} mt-12`}>
 
+    }, [])
+    //
+    // const handleSubmit = ()=>{
+    //     setCardShopping(data)
+    //     localStorage.setItem('orders',JSON.stringify([...cardShopping,data]));
+    //     console.log(orderItemsSelect)
+    // }
+    return (
+        <div className={`bg-white w-6/12 m-auto rounded p-[20px] ${shadows.shadowHeader} mt-12`}>
         <div className='flex items-center gap-4'>
             <img className='w-[240px] h-auto' src={BASE_URL + data.image} alt=""/>
             <div className='flex flex-col gap-8'>
@@ -55,7 +66,7 @@ const FocusProduct = () => {
                         <span
                             className='text-sm text-zinc-300'>تومان</span></h2>
                 </div>
-               <Button styleButton='bg-[#3CCF4E] py-2 rounded text-white font-bold'>افزودن به سبد خرید</Button>
+               <Button onClick={()=>navigate('/clientLogin')} styleButton='bg-[#3CCF4E] py-2 rounded text-white font-bold'>افزودن به سبد خرید</Button>
             </div>
         </div>
         <div className='flex flex-col gap-4'>
