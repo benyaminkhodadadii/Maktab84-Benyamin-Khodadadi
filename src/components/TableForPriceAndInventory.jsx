@@ -47,7 +47,7 @@ const TableForPriceAndInventory = ({posts, loading}) => {
                             <td className="px-6 py-4 text-center flex items-center gap-2 justify-center  ">
                                 <input type="text" className='outline-none border-none font-bold hover:text-blue-400' defaultValue={data.price} onClick={()=>{
                                     INSTANCE.patch(`/products/${data.id}`,{
-                                        price:prompt('قیمت را وارد کنید')
+                                        price:+prompt('قیمت را وارد کنید')
                                     })
                                 }}/>
                                 <span  className='text-zinc-300'>تومان</span>
@@ -55,7 +55,7 @@ const TableForPriceAndInventory = ({posts, loading}) => {
                             <td className="px-6 py-4 text-center ">
                                 <input type="text" className='outline-none border-none font-bold hover:text-blue-400' defaultValue={data.quantity} onClick={()=>{
                                     INSTANCE.patch(`/products/${data.id}`,{
-                                        quantity:prompt('موجودی را وارد کنید')
+                                        quantity:+prompt('موجودی را وارد کنید')
                                     })
                                 }}/>
                             </td>

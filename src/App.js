@@ -11,6 +11,8 @@ import ProductOfCategory from "./pages/ProductOfCategory";
 import FocusProduct from "./pages/FocusProduct";
 import ErrorURL from "./pages/ErrorURL";
 import ClientLogin from "./pages/ClientLogin";
+import PaymentCard from "./pages/PaymentCard";
+import OrderAdmin from "./pages/OrderAdmin";
 
 
 
@@ -26,18 +28,23 @@ function App() {
                     <Route path='/Stationery' element={<ProductOfCategory category='Stationery'/>}/>
                     <Route path='/Clothes' element={<ProductOfCategory category='Clothes'/>}/>
                     <Route path={`/focusProduct`} element={<h1>FocusProduct</h1>}></Route>
-                    <Route path='/clientLogin' element={<ClientLogin/>}></Route>
-                    <Route path={'/adminPanel'} element={<AdminPanel/>}>
+                    <Route path={'/login'} element={<AdminPanel/>}>
                         <Route path={':productOrder'} element={<OrderProduct/>}/>
                     </Route>
-                    <Route path={'/adminPanel'} element={<ManagmentPanel/>}>
+                    <Route path='/register' element={<ClientLogin h1Text='به سایت ما خوش آمدید'/>}/>
+                    <Route path={'/login'} element={<ManagmentPanel/>}>
                         <Route path={'orderProduct'} element={<OrderProduct/>}/>
                         <Route path ={'inventoryAndPrice'} element={<InventoryAndPrice/>}/>
+                        <Route path={'orderAdmin'} element={<OrderAdmin/>}/>
                     </Route>
+
+                    <Route path='/clientProduct' element={<ClientLogin h1Text='برای ادامه خرید باید ثبت نام کنید'/>}></Route>
                     <Route path='*' element={<ErrorURL/>}></Route>
+                    <Route  path='/paymentCard' element={<PaymentCard/>}></Route>
                 </Routes>
             </div>
             <Footer/>
+
         </>
 
 

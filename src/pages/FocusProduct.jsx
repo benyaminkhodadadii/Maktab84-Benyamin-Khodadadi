@@ -8,23 +8,27 @@ import Button from "../components/Button";
 
 const FocusProduct = () => {
     const counterResult = useSelector(state=>state.dataBase.counter)
-    // const orderItemsSelect = useSelector(state =>state.dataBase.dataList)
+    // const orderItemsSelect = useSelector(state =>state.data.orders) || [];
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const [data, setData] = useState([]);
-    // const [cardShopping,setCardShopping]=useState([])
     const params = useParams();
     useEffect(() => {
-        INSTANCE.get(`/products/${params.productId}`).then(res => setData(res.data))
-
+        INSTANCE.get(`/products/${params.productId}`)
+            .then(res => {
+                setData(res.data);
+            })
     }, [])
-    //
-    // const handleSubmit = ()=>{
-    //     setCardShopping(data)
-    //     localStorage.setItem('orders',JSON.stringify([...cardShopping,data]));
-    //     console.log(orderItemsSelect)
-    // }
+
+    const handleSubmit = ()=>{
+        let items = JSON.parse(localStorage.getItem('orders'))||[];
+        let findQuantity = items.find(item=>item.id===+params.productId);
+        findQuantity ?findQuantity.quantity+=counterResult : items.push(data)
+        localStorage.setItem('orders',JSON.stringify(items))
+        console.log(findQuantity.quantity)
+        navigate('/clientProduct')
+    }
     return (
         <div className={`bg-white w-6/12 m-auto rounded p-[20px] ${shadows.shadowHeader} mt-12`}>
         <div className='flex items-center gap-4'>
@@ -66,7 +70,7 @@ const FocusProduct = () => {
                         <span
                             className='text-sm text-zinc-300'>تومان</span></h2>
                 </div>
-               <Button onClick={()=>navigate('/clientLogin')} styleButton='bg-[#3CCF4E] py-2 rounded text-white font-bold'>افزودن به سبد خرید</Button>
+               <Button onClick={handleSubmit}  styleButton='bg-[#3CCF4E] py-2 rounded text-white font-bold'>افزودن به سبد خرید</Button>
             </div>
         </div>
         <div className='flex flex-col gap-4'>

@@ -12,10 +12,13 @@ const dataReducer = createSlice({
 
         auth:(state,action)=>{
             state.token = action.payload;
+        },
+        orders:(state,action)=>{
+            state.dataList.push(action.payload)
         }
 
     }
 })
 
-export const {auth} = dataReducer.actions
+export const {auth,orders} = dataReducer.actions
 export default dataReducer.reducer

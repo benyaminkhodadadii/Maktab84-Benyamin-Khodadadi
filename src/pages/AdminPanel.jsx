@@ -5,12 +5,15 @@ import styles from '../assests/styles/shadow.module.css'
 import {INSTANCE} from "../api/constant/constantApi";
 import {useDispatch, useSelector} from "react-redux";
 import {auth} from "../store/Feacture/reducer/isAuth";
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ManagmentPanel from "./managmentPanel";
+import {useNavigate} from "react-router-dom";
+
 const AdminPanel = () => {
     const dispatch = useDispatch();
-    const selectAuth = useSelector(state=>state.data.token);
+    const selectAuth = useSelector(state => state.data.token);
+    const navigate = useNavigate()
     const handlerSubmit = (dataAdmin) => {
         INSTANCE.post("/auth/login", {
             username: dataAdmin.userName,
@@ -18,7 +21,7 @@ const AdminPanel = () => {
         })
             .then(data => {
                 dispatch(auth(JSON.stringify(data.data)));
-                localStorage.setItem('accessToken',data.data.accessToken)
+                localStorage.setItem('accessToken', data.data.accessToken)
             })
             .catch(() => toast.error(' نام کاربری یا رمز عبور اشتباه است', {
                 position: "top-center",
@@ -35,7 +38,7 @@ const AdminPanel = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     return (
         <>
-            {!selectAuth &&  <div className={`${styles.shadowHeader} bg-white my-12 p-4 w-max m-auto w-full flex `}>
+            {!selectAuth && <div className={`${styles.shadowHeader} bg-white my-12 p-4 w-4/12 m-auto  `}>
                 <form onSubmit={handleSubmit(handlerSubmit)} className='flex flex-col gap-4 '>
                     <label htmlFor="adminUser">نام کاربری را وارد کنید : </label>
                     <input id='adminUser' placeholder='نام کاربری ' type="text"
@@ -66,15 +69,21 @@ const AdminPanel = () => {
                     />
                     {errors.userName && <span className={'text-[#F62343] text-right'}>نام کاربری اشتباه است</span>}
                     {errors.password && <span className={'text-[#F62343] text-right'}>رمز عبور اشتباه است</span>}
-                    <Button  styleButton={'bg-[#3264C7] text-white rounded'}>ورود</Button>
+                    <div className='flex gap-4'>
+                        <Button styleButton={'bg-[#3264C7] text-white rounded'}>ورود</Button>
+                        <button onClick={()=>navigate('/register')} className='text-[#3264C7]'>ثبت نام کنید</button>
+                    </div>
                 </form>
             </div>}
 
-            {selectAuth && <ManagmentPanel/>}
+            {
+                selectAuth && <ManagmentPanel/>
+            }
 
         </>
 
-    );
+    )
+        ;
 };
 
 export default AdminPanel;

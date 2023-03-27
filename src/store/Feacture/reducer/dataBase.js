@@ -11,11 +11,8 @@ const dataBase = createSlice({
         decrease:(state)=>{
             state.counter<=0 ? state.counter =0 : state.counter--
         },
-        orderItems:(state,action)=>{
-            state.dataList= [...state.dataList,action.payload]
-        }
     }
 })
 
-export const {increase,decrease,orderItems} = dataBase.actions
+export const {increase,decrease} = dataBase.actions
 export default dataBase.reducer

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from '../assests/styles/shadow.module.css'
 import desktopLogo from '../assests/SvgImage/desktopLogo.svg'
 import Logo from '../assests/SvgImage/—Pngtree—letter b logo_6059123.svg'
@@ -6,89 +6,32 @@ import solidBars from '../assests/SvgImage/solid bars.svg'
 import Button from "../components/Button";
 import Icons from "../components/Icons";
 import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {auth} from "../store/Feacture/reducer/isAuth";
+import {useSelector} from "react-redux";
 import shadowBadge from "../assests/styles/shadow.module.css";
-import {INSTANCE} from "../api/constant/constantApi";
+import AdminHeader from "./adminHeader";
+import NavLinkProduct from "../components/navLinkProduct";
+import LoginHeader from "../components/LoginHeader";
 
 const Header = () => {
     const selectAuth = useSelector(state => state.data.token)
-    const dispatch = useDispatch(state => state.data.token)
     // const counterResult = useSelector(state => state.dataBase.counter)
     const storageOrder = JSON.parse(localStorage.getItem('orders'))
-    // const [isProduct,setIsProduct]=useState(false);
-
-    const [items, setItems] = useState([]);
-    useEffect(() => {
-        INSTANCE.get(`/category`).then(res => setItems(res.data)).catch(e => console.error(e))
-    }, [])
     return (
         <div className={` flex ${styles.shadowHeader}`}>
-            {/*{console.log(storageOrder.length)}*/}
             <div className={`p-4  flex  w-[1332px] mx-auto items-center justify-between`}>
                 <div className={'flex gap-8 hidden md:flex w-full justify-between items-center'}>
                     <Link to="/"><img src={desktopLogo} alt=""
                                       className='hidden sm:flex cursor-pointer'/></Link>
-                    {selectAuth && (
-                        <div className='flex items-center justify-between w-full'>
-                            <h1 className='text-3xl font-bold'> پنل مدیریت فروشگاه خونه </h1>
-                            <div className='flex gap-4 items-center '>
+                    {selectAuth && <AdminHeader/>}
 
-                            </div>
-
-                            <Link to={'/'}>
-                                <div className='flex gap-4'>
-                                    <Link to={'/adminPanel'}>
-                                        <Button
-                                            styleButton={'text-[#20262E] bg-[#E4E4E5] hover:bg-[#20262E] hover:text-white'}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
-                                                 viewBox="0 0 14 16">
-                                                <path className='fill-current' id="solid_user-tie"
-                                                      data-name="solid user-tie"
-                                                      d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z"
-                                                      fill="#20262e"/>
-                                            </svg>
-                                            پنل ادمین</Button>
-                                    </Link>
-                                    <Button onClick={() => dispatch(auth(''))}
-                                            styleButton={'text-[#F62343] bg-[#FFD9DF] hover:bg-[#F62343] hover:text-white'}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
-                                             viewBox="0 0 14 16">
-                                            <path className='fill-current' id="solid_user-tie"
-                                                  data-name="solid user-tie"
-                                                  d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z"
-                                                  fill="#20262e"/>
-                                        </svg>
-                                        خروج</Button>
-
-
-                                </div>
-                            </Link>
-                        </div>
-
-                    )}
                     {!selectAuth && (
-                        <>
-                            {items.map(data => (
-                                <Link key={data.id} to={`/${data.name}`}>
-                                    <Icons text={data.name}><img src={data.icon} className='w-5 h-5' alt=""/></Icons>
-                                </Link>
-                            ))}
 
+                        <>
+                            <NavLinkProduct/>
                             <div className='flex gap-4'>
-                                <Link to={'/adminPanel'}>
-                                    <Button styleButton={'text-[#20262E] bg-[#E4E4E5] hover:bg-[#20262E]'}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16"
-                                             viewBox="0 0 14 16">
-                                            <path className='fill-current' id="solid_user-tie"
-                                                  data-name="solid user-tie"
-                                                  d="M7,8A4,4,0,1,0,3,4,4,4,0,0,0,7,8ZM9.994,9.019,8.5,15l-1-4.25L8.5,9h-3l1,1.75L5.5,15,4.006,9.019A4.193,4.193,0,0,0,0,13.2v1.3A1.5,1.5,0,0,0,1.5,16h11A1.5,1.5,0,0,0,14,14.5V13.2A4.193,4.193,0,0,0,9.994,9.019Z"
-                                                  fill="#20262e"/>
-                                        </svg>
-                                        مدیریت</Button>
-                                </Link>
+                                <LoginHeader/>
                                 <Link to={"/shopingPanel"}>
-                                    <Button number={storageOrder.length}
+                                    <Button number={storageOrder ? storageOrder.length : 0}
                                             styleButton={'bg-[#E6ECF8] text-[#3264C7] hover:bg-[#3264C7] hover:text-white'}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                              height="12.445" viewBox="0 0 16 12.445">
@@ -101,8 +44,7 @@ const Header = () => {
                                         <div className={`rounded-full bg-[#F62343] 
                                                 w-6 h-6 text-white font-bold flex items-center
                                                 justify-center  ${shadowBadge.shadowRedBadge} absolute bottom-7 right-[-12px]`}>
-                                            {storageOrder.length}</div>
-
+                                            {storageOrder ? storageOrder.length : 0}</div>
                                     </Button>
                                 </Link>
                             </div>
@@ -116,12 +58,8 @@ const Header = () => {
                         <Button bgColor={'bg-[#E6ECF8]'}> سبد خرید</Button>
                         <Button bgColor={'bg-[#E6ECF8]'}>مدیریت</Button>
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
     )
         ;
